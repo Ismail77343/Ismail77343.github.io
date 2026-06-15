@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Esmail Ali AL-Haimi — ERP & Software Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#06080f;
+  --surface:#0d1117;
+  --surface2:#111827;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.11);
+  --green:#00e5a0;
+  --green-dim:rgba(0,229,160,0.1);
+  --green-glow:rgba(0,229,160,0.2);
+  --blue:#4fa8ff;
+  --blue-dim:rgba(79,168,255,0.1);
+  --purple:#a78bfa;
+  --purple-dim:rgba(167,139,250,0.1);
+  --text:#f0f4f8;
+  --text2:#8892a4;
+  --text3:#3d4a5c;
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Inter',sans-serif;
+  --display:'Syne',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;overflow-x:hidden}
+
+/* canvas */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;padding:0;background:rgba(6,8,15,0.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1000px;margin:0 auto;padding:16px 28px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:var(--mono);font-size:13px;color:var(--green);letter-spacing:.06em}
+.nav-links{display:flex;gap:32px}
+.nav-links a{font-size:13px;color:var(--text2);text-decoration:none;letter-spacing:.03em;transition:color .2s}
+.nav-links a:hover{color:var(--green)}
+.nav-cta{font-size:12px;padding:7px 18px;border-radius:6px;background:var(--green-dim);color:var(--green);border:1px solid rgba(0,229,160,0.25);text-decoration:none;transition:all .2s;font-weight:500}
+.nav-cta:hover{background:var(--green);color:#06080f}
+
+/* layout */
+.wrap{max-width:1000px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 0 80px}
+.hero-grid{display:grid;grid-template-columns:1fr 340px;gap:60px;align-items:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--green);letter-spacing:.12em;margin-bottom:20px}
+.hero-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.hero-name{font-family:var(--display);font-size:clamp(44px,6vw,72px);font-weight:800;line-height:1.0;letter-spacing:-.03em;margin-bottom:14px}
+.hero-name span{color:var(--green)}
+.hero-role{font-family:var(--mono);font-size:15px;color:var(--text2);margin-bottom:28px;padding:10px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;display:inline-block}
+.hero-role em{color:var(--green);font-style:normal}
+.hero-bio{font-size:16px;color:var(--text2);line-height:1.8;max-width:520px;margin-bottom:36px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{padding:12px 26px;border-radius:8px;font-size:14px;font-weight:500;text-decoration:none;transition:all .22s;cursor:pointer;border:none;font-family:var(--sans);letter-spacing:.02em;display:inline-flex;align-items:center;gap:8px}
+.btn-solid{background:var(--green);color:#06080f}
+.btn-solid:hover{background:#00ffb3;transform:translateY(-2px);box-shadow:0 12px 28px var(--green-glow)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border2)}
+.btn-outline:hover{border-color:var(--green);color:var(--green);transform:translateY(-2px)}
+
+/* stat card panel */
+.hero-panel{display:flex;flex-direction:column;gap:12px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 24px;position:relative;overflow:hidden;transition:border-color .25s}
+.stat-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--green-dim),transparent);opacity:0;transition:opacity .25s}
+.stat-card:hover{border-color:rgba(0,229,160,0.3)}
+.stat-card:hover::before{opacity:1}
+.stat-num{font-family:var(--display);font-size:36px;font-weight:800;color:var(--green);line-height:1}
+.stat-label{font-size:12px;color:var(--text2);margin-top:4px;text-transform:uppercase;letter-spacing:.08em}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* section */
+section{padding:90px 0}
+.s-tag{font-family:var(--mono);font-size:11px;color:var(--green);letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.s-tag::before{content:'//';color:var(--text3)}
+.s-title{font-family:var(--display);font-size:clamp(28px,4vw,42px);font-weight:800;letter-spacing:-.02em;margin-bottom:52px;line-height:1.1}
+
+/* divider */
+.divider{height:1px;background:linear-gradient(to right,transparent,var(--border2),transparent)}
+
+/* ── SKILLS ── */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.skill-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;transition:all .25s;position:relative;overflow:hidden}
+.skill-card:hover{border-color:var(--border2);transform:translateY(-4px)}
+.skill-accent{position:absolute;top:0;left:0;right:0;height:2px}
+.accent-green{background:linear-gradient(to right,var(--green),transparent)}
+.accent-blue{background:linear-gradient(to right,var(--blue),transparent)}
+.accent-purple{background:linear-gradient(to right,var(--purple),transparent)}
+.skill-icon-wrap{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px}
+.icon-green{background:var(--green-dim)}
+.icon-blue{background:var(--blue-dim)}
+.icon-purple{background:var(--purple-dim)}
+.skill-card h3{font-size:14px;font-weight:600;margin-bottom:14px;color:var(--text)}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:11px;padding:4px 10px;border-radius:20px;font-family:var(--mono);font-weight:500}
+.tg{background:var(--green-dim);color:var(--green);border:1px solid rgba(0,229,160,0.2)}
+.tb{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(79,168,255,0.2)}
+.tp{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(167,139,250,0.2)}
+.tn{background:rgba(255,255,255,0.04);color:var(--text2);border:1px solid var(--border)}
+
+/* ── EXPERIENCE ── */
+.exp-timeline{display:flex;flex-direction:column;gap:0}
+.exp-item{display:grid;grid-template-columns:180px 1fr;gap:40px;padding:40px 0;border-bottom:1px solid var(--border);position:relative}
+.exp-item:last-child{border-bottom:none}
+.exp-date-col{padding-top:4px}
+.exp-company{font-size:13px;font-weight:600;color:var(--green);margin-bottom:4px}
+.exp-period{font-family:var(--mono);font-size:11px;color:var(--text3);line-height:1.6}
+.exp-badge{display:inline-block;margin-top:8px;font-size:10px;padding:3px 9px;border-radius:20px;background:var(--green-dim);color:var(--green);border:1px solid rgba(0,229,160,0.3);font-family:var(--mono)}
+.exp-content-title{font-size:18px;font-weight:600;color:var(--text);margin-bottom:16px}
+.exp-points{list-style:none;display:flex;flex-direction:column;gap:10px}
+.exp-points li{font-size:14px;color:var(--text2);padding-left:20px;position:relative;line-height:1.65}
+.exp-points li::before{content:'▸';position:absolute;left:0;color:var(--green);font-size:11px;top:3px}
+.exp-points li strong{color:var(--text);font-weight:600}
+
+/* ── PROJECTS ── */
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+.project-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:14px;transition:all .25s;position:relative;overflow:hidden}
+.project-card:hover{border-color:rgba(0,229,160,0.25);transform:translateY(-4px)}
+.project-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at top left,var(--green-dim),transparent 60%);opacity:0;transition:opacity .3s}
+.project-card:hover::after{opacity:1}
+.project-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1}
+.project-emoji{font-size:24px}
+.project-link{font-size:11px;color:var(--green);text-decoration:none;font-family:var(--mono);opacity:.7;transition:opacity .2s;display:flex;align-items:center;gap:3px}
+.project-link:hover{opacity:1}
+.project-name{font-size:15px;font-weight:600;color:var(--text);position:relative;z-index:1}
+.project-desc{font-size:13px;color:var(--text2);line-height:1.65;flex:1;position:relative;z-index:1}
+.project-stack{display:flex;flex-wrap:wrap;gap:5px;position:relative;z-index:1}
+.projects-wide{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.live-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;display:flex;align-items:center;gap:16px;transition:all .25s}
+.live-card:hover{border-color:rgba(0,229,160,0.25);transform:translateY(-3px)}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;box-shadow:0 0 8px var(--green)}
+.live-info{flex:1;min-width:0}
+.live-type{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px;font-family:var(--mono)}
+.live-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px}
+.live-url{font-size:12px;color:var(--green);font-family:var(--mono);text-decoration:none;opacity:.8}
+.live-url:hover{opacity:1}
+
+/* ── ABOUT/EDU ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.info-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px}
+.info-card h3{font-size:13px;color:var(--green);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
+.edu-item{margin-bottom:20px}
+.edu-item:last-child{margin-bottom:0}
+.edu-degree{font-size:15px;font-weight:600;color:var(--text);margin-bottom:3px}
+.edu-school{font-size:13px;color:var(--green)}
+.edu-period{font-size:12px;color:var(--text3);font-family:var(--mono);margin-top:2px}
+.cert-list{display:flex;flex-direction:column;gap:10px}
+.cert-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)}
+.cert-icon{font-size:16px;flex-shrink:0}
+.cert-name{font-size:13px;font-weight:500;color:var(--text)}
+.cert-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.lang-row{display:flex;flex-direction:column;gap:10px}
+.lang-item{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)}
+.lang-name{font-size:14px;font-weight:500;color:var(--text)}
+.lang-level{font-size:11px;color:var(--green);font-family:var(--mono)}
+
+/* ── CONTACT ── */
+.contact-wrap{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:52px;text-align:center;position:relative;overflow:hidden}
+.contact-wrap::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:400px;height:400px;background:radial-gradient(circle,var(--green-dim),transparent 70%);pointer-events:none}
+.contact-headline{font-family:var(--display);font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.02em;margin-bottom:14px;position:relative}
+.contact-sub{font-size:16px;color:var(--text2);max-width:480px;margin:0 auto 40px;line-height:1.75;position:relative}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:660px;margin:0 auto 40px;position:relative}
+.contact-item{padding:18px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;text-align:center;transition:all .2s}
+.contact-item:hover{border-color:rgba(0,229,160,0.25);background:var(--green-dim)}
+.c-icon{font-size:20px;margin-bottom:8px}
+.c-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.c-val{font-size:12px;color:var(--text);font-family:var(--mono)}
+.c-val a{color:var(--green);text-decoration:none}
+
+/* footer */
+footer{border-top:1px solid var(--border);padding:28px 0;text-align:center}
+.footer-inner{font-family:var(--mono);font-size:12px;color:var(--text3)}
+.footer-inner span{color:var(--green)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* responsive */
+@media(max-width:768px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-panel{display:none}
+  .skills-grid{grid-template-columns:1fr 1fr}
+  .projects-grid,.projects-wide,.about-grid,.contact-grid{grid-template-columns:1fr}
+  .exp-item{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .contact-wrap{padding:36px 24px}
+}
+@media(max-width:480px){
+  .skills-grid{grid-template-columns:1fr}
+  .stat-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">esmail.dev</div>
+    <div class="nav-links">
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="mailto:himiismail123@gmail.com" class="nav-cta">Hire me</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow"><span class="hero-dot"></span>Available for opportunities</div>
+      <h1 class="hero-name">Esmail Ali<br><span>AL-Haimi</span></h1>
+      <div class="hero-role">&lt; <em>Software & ERP Solutions Engineer</em> /&gt;</div>
+      <p class="hero-bio">
+        I build backend systems, customize ERP platforms, and deploy production-ready web applications.
+        5+ years delivering scalable solutions across Yemen and Saudi Arabia —
+        from multi-branch accounting systems to mobile ERPNext integrations.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-solid">Get in touch →</a>
+        <a href="#projects" class="btn btn-outline">View projects</a>
+        <a href="https://github.com/Ismail77343" target="_blank" class="btn btn-outline">GitHub</a>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Years active</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">40%</div>
+          <div class="stat-label">Time saved</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Users trained & onboarded</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">VPS servers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">Live platforms</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── SKILLS ── -->
+<section id="skills">
+  <div class="reveal">
+    <div class="s-tag">Technical stack</div>
+    <h2 class="s-title">What I build with</h2>
+  </div>
+  <div class="skills-grid">
+
+    <div class="skill-card reveal">
+      <div class="skill-accent accent-green"></div>
+      <div class="skill-icon-wrap icon-green">⟨/⟩</div>
+      <h3>Languages</h3>
+      <div class="skill-tags">
+        <span class="tag tg">PHP</span>
+        <span class="tag tg">C#</span>
+        <span class="tag tg">JavaScript</span>
+        <span class="tag tg">Dart</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-accent accent-purple"></div>
+      <div class="skill-icon-wrap icon-purple">⬡</div>
+      <h3>Frameworks</h3>
+      <div class="skill-tags">
+        <span class="tag tp">Laravel</span>
+        <span class="tag tp">.NET Framework</span>
+        <span class="tag tp">Flutter</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-accent accent-blue"></div>
+      <div class="skill-icon-wrap icon-blue">🗄</div>
+      <h3>Databases</h3>
+      <div class="skill-tags">
+        <span class="tag tb">MySQL</span>
+        <span class="tag tb">SQL Server</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-accent accent-green"></div>
+      <div class="skill-icon-wrap icon-green">◈</div>
+      <h3>ERP & Business Systems</h3>
+      <div class="skill-tags">
+        <span class="tag tg">ERPNext</span>
+        <span class="tag tg">Frappe</span>
+        <span class="tag tg">Accounting Systems</span>
+        <span class="tag tg">Inventory</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-accent accent-blue"></div>
+      <div class="skill-icon-wrap icon-blue">⚙</div>
+      <h3>DevOps & Hosting</h3>
+      <div class="skill-tags">
+        <span class="tag tb">VPS</span>
+        <span class="tag tb">CyberPanel</span>
+        <span class="tag tb">DNS</span>
+        <span class="tag tb">FTP</span>
+        <span class="tag tb">HTTPS</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-accent accent-purple"></div>
+      <div class="skill-icon-wrap icon-purple">◻</div>
+      <h3>CMS & Architecture</h3>
+      <div class="skill-tags">
+        <span class="tag tp">WordPress</span>
+        <span class="tag tp">WooCommerce</span>
+        <span class="tag tn">MVC</span>
+        <span class="tag tn">Onion Arch</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── EXPERIENCE ── -->
+<section id="experience">
+  <div class="reveal">
+    <div class="s-tag">Career timeline</div>
+    <h2 class="s-title">Where I've worked</h2>
+  </div>
+  <div class="exp-timeline">
+
+    <div class="exp-item reveal">
+      <div class="exp-date-col">
+        <div class="exp-company">Technical Palace Group</div>
+        <div class="exp-period">May 2025<br>Present<br>Al Khobar, KSA</div>
+        <div class="exp-badge">● Current</div>
+      </div>
+      <div>
+        <div class="exp-content-title">Software & ERP Solutions Engineer</div>
+        <ul class="exp-points">
+          <li>Cut manual reporting time by <strong>40%</strong> through targeted ERP workflow automation</li>
+          <li>Customized <strong>ERPNext</strong> modules, roles, approval chains, and reports for multi-branch operations</li>
+          <li>Developed and deployed web applications used across multiple company branches</li>
+          <li>Managed and hardened <strong>3+ VPS</strong> production servers — CyberPanel, DNS, HTTPS, FTP</li>
+          <li>Trained and onboarded <strong>50+ users</strong> on ERP systems with ongoing technical support</li>
+          <li>Translated complex business requirements into scalable, maintainable technical architecture</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-date-col">
+        <div class="exp-company">Alnasir IT</div>
+        <div class="exp-period">Jun 2024<br>Apr 2025</div>
+      </div>
+      <div>
+        <div class="exp-content-title">IT Engineer</div>
+        <ul class="exp-points">
+          <li>Built web solutions that improved core business process efficiency</li>
+          <li>Administered and secured IT infrastructure for performance and reliability</li>
+          <li>Trained staff on web-based applications and internal tools</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-date-col">
+        <div class="exp-company">Public Authority — Yemen</div>
+        <div class="exp-period">May 2021<br>Jan 2024</div>
+      </div>
+      <div>
+        <div class="exp-content-title">IT Engineer — Small & Micro Enterprises</div>
+        <ul class="exp-points">
+          <li>Developed and maintained government-facing web applications</li>
+          <li>Managed full IT infrastructure stack: servers, networks, performance, and uptime</li>
+          <li>Delivered structured technical training programs for government employees</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── PROJECTS ── -->
+<section id="projects">
+  <div class="reveal">
+    <div class="s-tag">Work samples</div>
+    <h2 class="s-title">Projects & platforms</h2>
+  </div>
+
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-top">
+        <div class="project-emoji">⚙️</div>
+        <a href="https://github.com/Ismail77343/ErpNext-AppBackEnd" target="_blank" class="project-link">GitHub ↗</a>
+      </div>
+      <div class="project-name">ERPNext Mobile Backend</div>
+      <div class="project-desc">Python/Frappe backend API layer for ERPNext mobile integration. Covers Leads, Opportunities, Quotations, and Workflow Notifications with full API documentation and architecture guide.</div>
+      <div class="project-stack">
+        <span class="tag tg">Python</span>
+        <span class="tag tg">Frappe</span>
+        <span class="tag tg">ERPNext</span>
+        <span class="tag tn">REST API</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-top">
+        <div class="project-emoji">📱</div>
+        <a href="https://github.com/Ismail77343/ErpNext-MobileApp" target="_blank" class="project-link">GitHub ↗</a>
+      </div>
+      <div class="project-name">ERPNext Mobile App</div>
+      <div class="project-desc">Open-source Flutter application for ERPNext integration. Real-time project monitoring and sales tracking. Cross-platform: Android, iOS, Web, Desktop. 2 forks by the community.</div>
+      <div class="project-stack">
+        <span class="tag tp">Flutter</span>
+        <span class="tag tp">Dart</span>
+        <span class="tag tg">ERPNext</span>
+        <span class="tag tn">Cross-platform</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-top">
+        <div class="project-emoji">🧾</div>
+      </div>
+      <div class="project-name">Multi-Branch Accounting System</div>
+      <div class="project-desc">.NET Framework accounting system with voice commands, advanced multi-branch reporting, and real-time dashboards. Deployed across multiple enterprise branches.</div>
+      <div class="project-stack">
+        <span class="tag tb">C#</span>
+        <span class="tag tb">.NET</span>
+        <span class="tag tb">SQL Server</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-top">
+        <div class="project-emoji">📊</div>
+      </div>
+      <div class="project-name">Financial Management System</div>
+      <div class="project-desc">PHP-based financial and inventory management platform built for cross-department use. Streamlines procurement, stock tracking, and financial reporting in one system.</div>
+      <div class="project-stack">
+        <span class="tag tg">PHP</span>
+        <span class="tag tg">Laravel</span>
+        <span class="tag tb">MySQL</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-top">
+        <div class="project-emoji">◈</div>
+      </div>
+      <div class="project-name">ERPNext Full Implementation</div>
+      <div class="project-desc">Complete ERPNext setup and customization for a multi-branch business — custom workflows, user roles, approval chains, modules, and automated reports aligned to real operations.</div>
+      <div class="project-stack">
+        <span class="tag tg">ERPNext</span>
+        <span class="tag tg">Frappe</span>
+        <span class="tag tp">Python</span>
+        <span class="tag tn">Jinja</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-top">
+        <div class="project-emoji">🔧</div>
+        <a href="https://github.com/Ismail77343/App_Custom" target="_blank" class="project-link">GitHub ↗</a>
+      </div>
+      <div class="project-name">ERPNext App Customization</div>
+      <div class="project-desc">Custom Frappe app extending ERPNext with business-specific logic, custom doctypes, hooks, and server-side scripts tailored to operational needs.</div>
+      <div class="project-stack">
+        <span class="tag tg">Python</span>
+        <span class="tag tg">Frappe</span>
+        <span class="tag tn">Hooks</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Live websites -->
+  <div style="margin-top:16px">
+    <div class="s-tag reveal" style="margin-bottom:16px">Live websites</div>
+    <div class="projects-wide">
+      <div class="live-card reveal">
+        <div class="live-dot"></div>
+        <div class="live-info">
+          <div class="live-type">Entrepreneurial Platform</div>
+          <div class="live-name">Messaha Hub</div>
+          <a href="https://messahahub.com" target="_blank" class="live-url">messahahub.com ↗</a>
+        </div>
+      </div>
+      <div class="live-card reveal">
+        <div class="live-dot"></div>
+        <div class="live-info">
+          <div class="live-type">B2B Multi-Factory Marketplace</div>
+          <div class="live-name">Real Silk</div>
+          <a href="https://realsilk.sa" target="_blank" class="live-url">realsilk.sa ↗</a>
+        </div>
+      </div>
+      <div class="live-card reveal">
+        <div class="live-dot"></div>
+        <div class="live-info">
+          <div class="live-type">B2C E-Commerce Shop</div>
+          <div class="live-name">Real Silk Life</div>
+          <a href="https://realsilklife.com" target="_blank" class="live-url">realsilklife.com ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="reveal">
+    <div class="s-tag">Background</div>
+    <h2 class="s-title">Education & credentials</h2>
+  </div>
+  <div class="about-grid">
+
+    <div class="info-card reveal">
+      <h3>Education</h3>
+      <div class="edu-item">
+        <div class="edu-degree">B.Sc. Information Technology</div>
+        <div class="edu-school">Queen Arwa University</div>
+        <div class="edu-period">Graduated</div>
+      </div>
+    </div>
+
+    <div class="info-card reveal">
+      <h3>Certifications & courses</h3>
+      <div class="cert-list">
+        <div class="cert-item">
+          <div class="cert-icon">🛡</div>
+          <div>
+            <div class="cert-name">Cybersecurity</div>
+            <div class="cert-sub">Fundamentals & applied network security</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">🌐</div>
+          <div>
+            <div class="cert-name">Network Administration</div>
+            <div class="cert-sub">Infrastructure configuration & management</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">⚡</div>
+          <div>
+            <div class="cert-name">Laravel & Mobile Development</div>
+            <div class="cert-sub">Laravel web + Flutter mobile</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card reveal">
+      <h3>Languages</h3>
+      <div class="lang-row">
+        <div class="lang-item">
+          <div class="lang-name">Arabic</div>
+          <div class="lang-level">Native</div>
+        </div>
+        <div class="lang-item">
+          <div class="lang-name">English</div>
+          <div class="lang-level">Professional</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card reveal">
+      <h3>What I specialize in</h3>
+      <div class="cert-list">
+        <div class="cert-item">
+          <div class="cert-icon">◈</div>
+          <div>
+            <div class="cert-name">ERP Implementation & Customization</div>
+            <div class="cert-sub">ERPNext · Frappe · workflows · roles</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">⟨/⟩</div>
+          <div>
+            <div class="cert-name">Backend Development</div>
+            <div class="cert-sub">Laravel · PHP · .NET · REST APIs</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-icon">⚙</div>
+          <div>
+            <div class="cert-name">Server Management</div>
+            <div class="cert-sub">VPS · CyberPanel · DNS · Security</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── CONTACT ── -->
+<section id="contact" style="padding-bottom:60px">
+  <div class="contact-wrap reveal">
+    <h2 class="contact-headline">Let's build something</h2>
+    <p class="contact-sub">Open to ERP projects, backend systems, and freelance opportunities. Based in Al Khobar — available remotely.</p>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="c-icon">📞</div>
+        <div class="c-label">Phone</div>
+        <div class="c-val">+966 502 015 262</div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">✉</div>
+        <div class="c-label">Email</div>
+        <div class="c-val"><a href="mailto:himiismail123@gmail.com">himiismail123@gmail.com</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="c-icon">⌥</div>
+        <div class="c-label">GitHub</div>
+        <div class="c-val"><a href="https://github.com/Ismail77343" target="_blank">Ismail77343</a></div>
+      </div>
+    </div>
+    <a href="mailto:himiismail123@gmail.com" class="btn btn-solid" style="font-size:15px;padding:14px 36px">Send me a message →</a>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <span>Esmail Ali AL-Haimi</span> · Software & ERP Solutions Engineer · Al Khobar, KSA · 2025
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── CANVAS GRID ──
+const canvas=document.getElementById('bg-canvas');
+const ctx=canvas.getContext('2d');
+let W,H;
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+resize();window.addEventListener('resize',resize);
+
+const dots=[];
+for(let i=0;i<70;i++){
+  dots.push({
+    x:Math.random()*1400,y:Math.random()*900,
+    vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,
+    r:Math.random()*1.2+.3,o:Math.random()*.35+.08
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  // grid lines
+  ctx.strokeStyle='rgba(255,255,255,0.025)';
+  ctx.lineWidth=.5;
+  const gs=80;
+  for(let x=0;x<W;x+=gs){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke()}
+  for(let y=0;y<H;y+=gs){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke()}
+  // dots
+  dots.forEach(d=>{
+    ctx.beginPath();ctx.arc(d.x%W,d.y%H,d.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(0,229,160,${d.o})`;ctx.fill();
+    d.x+=d.vx;d.y+=d.vy;
+    if(d.x<0)d.x=W;if(d.x>W)d.x=0;
+    if(d.y<0)d.y=H;if(d.y>H)d.y=0;
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+
+// ── REVEAL ──
+const els=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*55);obs.unobserve(e.target)}
+  });
+},{threshold:.08});
+els.forEach(el=>obs.observe(el));
+
+// ── ACTIVE NAV ──
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});
+  navLinks.forEach(a=>{
+    a.style.color=a.getAttribute('href')==='#'+cur?'var(--green)':'';
+  });
+});
+</script>
+</body>
+</html>
